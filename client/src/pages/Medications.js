@@ -50,9 +50,9 @@ export default function Medications() {
 
       {showForm && (
         <form onSubmit={handleSubmit} style={{ ...card, marginBottom: '1.5rem' }}>
-          <input style={input} placeholder="Medicine name" value={form.name} onChange={e => setForm({...form, name: e.target.value})} required />
-          <input style={input} placeholder="Dosage (e.g. 500mg)" value={form.dosage} onChange={e => setForm({...form, dosage: e.target.value})} />
-          <input style={input} placeholder="Frequency (e.g. twice daily)" value={form.frequency} onChange={e => setForm({...form, frequency: e.target.value})} />
+          <input style={input} placeholder="Medicine name" value={form.name} onChange={e => setForm({...form, name: e.target.value})} required maxLength={100} />
+          <input style={input} placeholder="Dosage (e.g. 500mg)" value={form.dosage} onChange={e => setForm({...form, dosage: e.target.value})} maxLength={50} />
+          <input style={input} placeholder="Frequency (e.g. twice daily)" value={form.frequency} onChange={e => setForm({...form, frequency: e.target.value})} maxLength={50} />
           <button style={btn} type="submit">Save</button>
         </form>
       )}

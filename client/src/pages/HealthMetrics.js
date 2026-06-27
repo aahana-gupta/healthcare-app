@@ -15,8 +15,18 @@ export default function HealthMetrics() {
     setMetrics(res.data)
   }
 
+  const validate = () => {
+    const v = parseFloat(form.value)
+    if (form.type === 'weight' && (v < 20 || v > 300)) return 'Weight must be between 20–300 kg'
+    if (form.type === 'sleep' && (v < 0 || v > 24)) return 'Sleep must be between 0–24 hours'
+    if (form.type === 'bloodPressure' && (v < 60 || v > 250)) return 'Systolic BP must be between 60–250'
+    return null
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
+    const error = validate()
+    if (error) return alert(error)
     await api.post('/health-metrics', form)
     setForm({ type, value: '', date: '' })
     setShowForm(false)
@@ -48,7 +58,7 @@ export default function HealthMetrics() {
             <option value="sleep">Sleep (hours)</option>
             <option value="bloodPressure">Blood Pressure</option>
           </select>
-          <input style={styles.input} type="number" placeholder="Value" value={form.value} onChange={e => setForm({...form, value: e.target.value})} required />
+          <input style={styles.input} type="number" placeholder="Value" min={form.type === 'weight' ? 20 : form.type === 'sleep' ? 0 : 60} max={form.type === 'weight' ? 300 : form.type === 'sleep' ? 24 : 250} value={form.value} onChange={e => setForm({...form, value: e.target.value})} required />
           <input style={styles.input} type="date" value={form.date} onChange={e => setForm({...form, date: e.target.value})} />
           <button style={styles.btn} type="submit">Save</button>
         </form>

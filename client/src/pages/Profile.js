@@ -40,8 +40,8 @@ export default function Profile() {
         <form onSubmit={handleSubmit}>
           <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem' }}>
             <div><label style={label}>Blood Group</label><input style={input} placeholder="e.g. A+" value={form.bloodGroup} onChange={e => setForm({...form, bloodGroup: e.target.value})} /></div>
-            <div><label style={label}>Age</label><input style={input} type="number" placeholder="Years" value={form.age} onChange={e => setForm({...form, age: e.target.value})} /></div>
-            <div><label style={label}>Height (cm)</label><input style={input} type="number" placeholder="cm" value={form.height} onChange={e => setForm({...form, height: e.target.value})} /></div>
+            <div><label style={label}>Age</label><input style={input} type="number" placeholder="Years" min={0} max={120} value={form.age} onChange={e => setForm({...form, age: e.target.value})} /></div>
+            <div><label style={label}>Height (cm)</label><input style={input} type="number" placeholder="cm" min={50} max={300} value={form.height} onChange={e => setForm({...form, height: e.target.value})} /></div>
             <div><label style={label}>Emergency Contact</label><input style={input} placeholder="Phone number" value={form.emergencyContact} onChange={e => setForm({...form, emergencyContact: e.target.value})} /></div>
           </div>
           <div><label style={label}>Allergies</label><input style={input} placeholder="e.g. Penicillin, Peanuts" value={form.allergies} onChange={e => setForm({...form, allergies: e.target.value})} /></div>

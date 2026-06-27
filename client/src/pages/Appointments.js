@@ -49,7 +49,7 @@ export default function Appointments() {
       {showForm && (
         <form onSubmit={handleSubmit} style={{ background: dark ? '#1e1e2e' : 'white', padding:'1.5rem', borderRadius:'10px', marginBottom:'1.5rem', boxShadow:'0 2px 8px rgba(0,0,0,0.06)' }}>
           <input style={input} placeholder="Doctor name" value={form.doctor} onChange={e => setForm({...form, doctor: e.target.value})} required />
-          <input style={input} type="date" value={form.date} onChange={e => setForm({...form, date: e.target.value})} required />
+          <input style={input} type="date" min={new Date().toISOString().split('T')[0]} value={form.date} onChange={e => setForm({...form, date: e.target.value})} required />
           <input style={input} placeholder="Reason" value={form.reason} onChange={e => setForm({...form, reason: e.target.value})} />
           <input style={input} placeholder="Notes" value={form.notes} onChange={e => setForm({...form, notes: e.target.value})} />
           <button style={btn} type="submit">Save</button>
