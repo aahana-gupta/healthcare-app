@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { useTheme } from '../context/ThemeContext'
 import api from '../utils/api'
 
 export default function Appointments() {
@@ -7,7 +6,6 @@ export default function Appointments() {
   const [form, setForm] = useState({ doctor: '', date: '', reason: '', notes: '' })
   const [showForm, setShowForm] = useState(false)
   const [search, setSearch] = useState('')
-  const { dark } = useTheme()
 
   useEffect(() => { fetchAppointments() }, [])
 
@@ -34,8 +32,8 @@ export default function Appointments() {
     (a.reason && a.reason.toLowerCase().includes(search.toLowerCase()))
   )
 
-  const card = { background: dark ? '#1e1e2e' : 'white', padding:'1.2rem 1.5rem', borderRadius:'10px', marginBottom:'1rem', boxShadow:'0 2px 8px rgba(0,0,0,0.06)', display:'flex', justifyContent:'space-between', alignItems:'center' }
-  const input = { display:'block', width:'100%', marginBottom:'1rem', padding:'0.75rem', borderRadius:'6px', border: dark ? '1px solid #444' : '1px solid #ddd', background: dark ? '#2a2a3e' : 'white', color: dark ? '#eee' : '#111', boxSizing:'border-box' }
+  const card = { background: 'var(--bg-card)', padding:'1.2rem 1.5rem', borderRadius:'10px', marginBottom:'1rem', boxShadow:'0 2px 8px rgba(0,0,0,0.06)', display:'flex', justifyContent:'space-between', alignItems:'center' }
+  const input = { display:'block', width:'100%', marginBottom:'1rem', padding:'0.75rem', borderRadius:'6px', border: '1px solid var(--border-input)', background: 'var(--bg-input)', color: 'var(--text-primary)', boxSizing:'border-box' }
 
   return (
     <div style={{ padding:'2rem', maxWidth:'800px', margin:'0 auto' }}>
@@ -47,7 +45,7 @@ export default function Appointments() {
       <input style={{...input, marginBottom:'1.5rem'}} placeholder="🔍 Search appointments..." value={search} onChange={e => setSearch(e.target.value)} />
 
       {showForm && (
-        <form onSubmit={handleSubmit} style={{ background: dark ? '#1e1e2e' : 'white', padding:'1.5rem', borderRadius:'10px', marginBottom:'1.5rem', boxShadow:'0 2px 8px rgba(0,0,0,0.06)' }}>
+        <form onSubmit={handleSubmit} style={{ background: 'var(--bg-card)', padding:'1.5rem', borderRadius:'10px', marginBottom:'1.5rem', boxShadow:'0 2px 8px rgba(0,0,0,0.06)' }}>
           <input style={input} placeholder="Doctor name" value={form.doctor} onChange={e => setForm({...form, doctor: e.target.value})} required />
           <input style={input} type="date" min={new Date().toISOString().split('T')[0]} value={form.date} onChange={e => setForm({...form, date: e.target.value})} required />
           <input style={input} placeholder="Reason" value={form.reason} onChange={e => setForm({...form, reason: e.target.value})} />
@@ -56,14 +54,14 @@ export default function Appointments() {
         </form>
       )}
 
-      {filtered.length === 0 && <p style={{ color:'#888' }}>No appointments found.</p>}
+      {filtered.length === 0 && <p style={{ color: 'var(--text-muted)' }}>No appointments found.</p>}
 
       {filtered.map(a => (
         <div key={a._id} style={card}>
           <div>
             <strong>{a.doctor}</strong>
-            <p style={{ color:'#888', margin:'0.3rem 0 0', fontSize:'0.9rem' }}>{new Date(a.date).toLocaleDateString()} · {a.reason}</p>
-            {a.notes && <p style={{ color:'#aaa', fontSize:'0.85rem', margin:'0.2rem 0 0' }}>{a.notes}</p>}
+            <p style={{ color: 'var(--text-muted)', margin:'0.3rem 0 0', fontSize:'0.9rem' }}>{new Date(a.date).toLocaleDateString()} · {a.reason}</p>
+            {a.notes && <p style={{ color: 'var(--text-secondary)', fontSize:'0.85rem', margin:'0.2rem 0 0' }}>{a.notes}</p>}
           </div>
           <button style={{ background:'transparent', border:'1px solid #ff4444', color:'#ff4444', padding:'0.35rem 0.8rem', borderRadius:'4px', cursor:'pointer', fontSize:'0.85rem' }} onClick={() => handleDelete(a._id)}>Delete</button>
         </div>

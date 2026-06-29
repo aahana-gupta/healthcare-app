@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from '../context/AuthContext'
-import { useTheme } from '../context/ThemeContext'
 import api from '../utils/api'
 
 export default function Profile() {
   const { user } = useAuth()
-  const { dark } = useTheme()
   const [form, setForm] = useState({ bloodGroup: '', allergies: '', emergencyContact: '', age: '', height: '' })
   const [saved, setSaved] = useState(false)
 
@@ -20,9 +18,9 @@ export default function Profile() {
     setTimeout(() => setSaved(false), 2000)
   }
 
-  const card = { background: dark ? '#1e1e2e' : 'white', padding: '2rem', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }
-  const input = { display:'block', width:'100%', marginBottom:'1rem', padding:'0.75rem', borderRadius:'6px', border: dark ? '1px solid #444' : '1px solid #ddd', background: dark ? '#2a2a3e' : 'white', color: dark ? '#eee' : '#111', boxSizing:'border-box' }
-  const label = { display:'block', fontSize:'0.85rem', color:'#888', marginBottom:'0.3rem' }
+  const card = { background: 'var(--bg-card)', padding: '2rem', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }
+  const input = { display:'block', width:'100%', marginBottom:'1rem', padding:'0.75rem', borderRadius:'6px', border: '1px solid var(--border-input)', background: 'var(--bg-input)', color: 'var(--text-primary)', boxSizing:'border-box' }
+  const label = { display:'block', fontSize:'0.85rem', color: 'var(--text-muted)', marginBottom:'0.3rem' }
 
   return (
     <div style={{ padding: '2rem', maxWidth: '600px', margin: '0 auto' }}>
@@ -32,8 +30,8 @@ export default function Profile() {
           {user?.name?.charAt(0).toUpperCase()}
         </div>
         <div>
-          <strong style={{ fontSize:'1.1rem' }}>{user?.name}</strong>
-          <p style={{ color:'#888', margin:0, fontSize:'0.9rem' }}>{user?.email}</p>
+          <strong style={{ fontSize:'1.1rem', color: 'var(--text-primary)' }}>{user?.name}</strong>
+          <p style={{ color: 'var(--text-muted)', margin:0, fontSize:'0.9rem' }}>{user?.email}</p>
         </div>
       </div>
       <div style={card}>
